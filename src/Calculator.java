@@ -139,7 +139,7 @@ public class Calculator
      * (5) "Calculator Exception, message is: %s", where %s is the message of a
      * CalculatorException - a CalculatorException has been caught.
      */
-    public static String parseAndExecute(String input)
+    public static String parseAndExecute(String input) // breaks input into tokens and sends it to execute
     {
         // TODO: complete this...
         // Hint: you should try and call execute(). If execute encounters an error, it will throw an exception. This

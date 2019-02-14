@@ -27,7 +27,10 @@ public class CalculatorTest {
      */
     public void calculateTwoTokensTestValidHalve() throws AssertException
     {
-        // TODO: complete this test...
+        try
+        {
+        	// TODO: complete this test...
+        }
     }
 
     /**
