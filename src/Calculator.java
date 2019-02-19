@@ -34,16 +34,31 @@ public class Calculator
      */
     protected static int calculateTwoTokens(String[] tokens) throws NumberFormatException, CalculatorException
     {
+    	int answerVal = 0;
+    	int numberVal = Integer.parseInt(tokens[1]);   // Throws NumberFormatException if the second token is not an int value.
+    	String command = tokens[0];		// Throws CalculatorException if the first token is not a valid command
     	
-    	String command = tokens[0];
-    	if (command.equalsIgnoreCase("negate") || command.equalsIgnoreCase("halve"))
-    	{
+    		if (command.equalsIgnoreCase("negate"))
+    		{
+    			int negatedVal = numberVal * -1;
+    			 answerVal = negatedVal;
+    			 return answerVal;
+    		}
+    		if (command.equalsIgnoreCase("halve"))
+    		{
+    			int halvedVal = numberVal / 2;
+    			answerVal = halvedVal; // int will automatically round down
+    			return answerVal;
+    		}
     		
-    	}
-    		// Throws CalculatorException if the first token is not a valid command
-        int a = Integer.parseInt(tokens[1]); // Throws NumberFormatException if the second token is not an int value.
-        // TODO: complete this...
+    		else
+    		{
+    			throw new CalculatorException("Illegal Command");
+    		}
+    	
     }
+        // TODO: complete this...
+    
 
     /**
      * Takes an input command of three string tokens and performs the appropriate calculator command.
@@ -69,13 +84,43 @@ public class Calculator
      * @param tokens The input string to the program tokenized (split up). Should be a String array of three elements:
      *  [num1, command, num2].
      * @return The result of the calculator operation ("num1 + num2", "num1 - num2", or "num1 / num2")
-     * @throws ArithmeticException A division by zero has occured.
+     * @throws ArithmeticException A division by zero has occurred.
      * @throws NumberFormatException Thrown if the first or third token is not convertible from String to int.
      * @throws CalculatorException Thrown if the second token is not a valid command ("+", "-", or "/")
      */
     protected static int calculateThreeTokens(String[] tokens)
             throws ArithmeticException, NumberFormatException, CalculatorException
     {
+    	
+    	int addition = 0;
+    	int subtraction = 0;
+    	int division = 0;
+    	int num1 = Integer.parseInt(tokens[0]);
+    	int num2 = Integer.parseInt(tokens[2]);
+    	String command = tokens[1];
+    	
+    		if (command.equals("+"))
+    		{
+    			addition = num1 + num2;
+    			return addition;
+    		}
+    	
+    		if (command.equals("-"))
+    		{
+    			subtraction = num1 - num2;
+    			return subtraction;
+    		}
+    	
+    		if (command.equals("/"))
+    		{
+    			division = num1 / num2;	
+    			return division;
+    		}
+    		
+    		else
+    		{
+    			throw new CalculatorException("Illegal Command");
+    		}
         // TODO: complete this...
     }
 
@@ -112,16 +157,26 @@ public class Calculator
         // Condition on the number of tokens (number of strings in user input separated by spaces)
         switch(tokens.length)
         {
+        case '0' : throw new CalculatorException("Illegal Token Length");
+        
+        case '1' :
+        	if (tokens[0].equalsIgnoreCase("quit"))
+        	{
+        		return Integer.MIN_VALUE;
+        	}
+        	
+        	else
+        	{
+        		throw new CalculatorException("Illegal Command");
+        	}
+        		
         case '2' : calculateTwoTokens(tokens);
         
-        break;
-        
         case '3' : calculateThreeTokens(tokens);
-            // TODO: complete this...
-        default : //return an error
-        }
         
-        return Integer.MIN_VALUE;
+        default : throw new CalculatorException("Illegal Token Length");
+        }
+       
     }
 
     /**
@@ -155,39 +210,43 @@ public class Calculator
      */
     public static String parseAndExecute(String input) // breaks input into tokens and sends it to execute
     {
-    	String[] tokenized = new String[3];
-    	tokenized = input.split(" ");
+    	String[] tokenized = input.split(" ");
+    	try
     	
-    	try 
-    	{
-			return String.format("The result is: %d", (execute(tokenized)));
-			
-		} // may not need all of these printStackTraces?
-    	catch (ArithmeticException e)
-    	{
-    		System.out.println("Attempted to divide by 0. Please try again.");
-    		e.printStackTrace();
-    	}
+    	{   
+    		execute(tokenized);
+    		if (execute(tokenized) == Integer.MIN_VALUE);
+    		{
+    			return "quit";
+    		}
+    		else (execute(tokenized) == (int)(execute(tokenized)))
+    		{
+    			return String.format("The result is: %d", execute(tokenized));
+    		}
+    	
+    		
+    	}    	
     	catch (NumberFormatException e)
     	{
-    		System.out.println("Input number cannot be parsed to an int. Please try again.");
-			e.printStackTrace();
+    		return "Input number cannot be parsed to an int. Please try again.";
+			
 		} 
-    	catch (CalculatorException e) 
+    	catch (CalculatorException e)
     	{
-			System.out.printf("CalculatorException, message is: %s", e.getMessage());
-			e.printStackTrace();
+			return String.format("CalculatorException, message is: %s", e.getMessage());
+		
 		}
-    	return null;		// return in any case needs to be?
+    	catch (ArithmeticException e)
+    	{
+    		return "Attempted to divide by 0. Please try again.";
+    
+    	}
+    	return "";	// return in any case needs to be?
     	
     	
         
     	// TODO: complete this...
         // Hint: you should try and call execute(). If execute encounters an error, it will throw an exception. This
         // method will catch those exceptions and respond accordingly.
-    }
-    public String toString()	// need a toString method?
-    {
-    	return String.format("your error is: %s", argument;
     }
 }
