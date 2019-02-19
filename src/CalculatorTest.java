@@ -29,7 +29,12 @@ public class CalculatorTest {
     {
         try
         {
-        	// TODO: complete this test...
+        	int result = Calculator.calculateTwoTokens(new String[] {"halve", "6"});
+        	Assert.assertEquals(3, result);// TODO: complete this test...
+        }
+        catch (Exception e)
+        {
+        	Assert.fail("Legal expression threw an Exception: " + e.getMessage());
         }
     }
 
@@ -59,7 +64,17 @@ public class CalculatorTest {
      */
     public void calculateTwoTokensTestInvalidCommand() throws AssertException
     {
-        // TODO: complete this test...
+    	try
+    	{
+    		Calculator.calculateTwoTokens(new String[] {"bop", "4"});
+    		Assert.fail("Illegal expression did not throw an Exception");
+    	}
+    	
+    	catch (Exception e)
+    	{
+    		Assert.fail("Unexpected Exception (not numberFormatException) caught");
+    	}
+        // TODO: complete this test... complete?
     }
 
     /**
@@ -67,7 +82,17 @@ public class CalculatorTest {
      */
     public void calculateThreeTokensTestValidAdd() throws AssertException
     {
-        // TODO: complete this test...
+    	try
+    	{
+    		int result = Calculator.calculateThreeTokens(new String[] {"4", "+", "8"});
+    		Assert.assertEquals(12, result);
+    	}
+    	
+    	catch (Exception e)
+    	{
+    		Assert.fail("Legal expression threw an Exception: " + e.getMessage());
+    	}
+        // TODO: complete this test...complete?
     }
 
     /**
@@ -75,7 +100,17 @@ public class CalculatorTest {
      */
     public void calculateThreeTokensTestValidSubtract() throws AssertException
     {
-        // TODO: complete this test...
+    	try
+    	{
+    		int result = Calculator.calculateThreeTokens(new String[] {"8", "-", "3"});
+    		Assert.assertEquals(5, result);
+    	}
+    	
+    	catch (Exception e)
+    	{
+    		Assert.fail("Legal expression threw an Exception: " + e.getMessage());
+    	}
+        // TODO: complete this test...complete?
     }
 
     /**
@@ -83,6 +118,16 @@ public class CalculatorTest {
      */
     public void calculateThreeTokensTestValidDivide() throws AssertException
     {
+    	try
+    	{
+    		int result = Calculator.calculateThreeTokens(new String[] {"8", "/", "2"});
+    		Assert.assertEquals(4, result);
+    	}
+    	
+    	catch (Exception e)
+    	{
+    		Assert.fail("Legal expression threw an Exception: " + e.getMessage());
+    	}
         // TODO: complete this test...
     }
 
@@ -116,7 +161,7 @@ public class CalculatorTest {
         catch (NumberFormatException e)
         {
             // We expect the function to throw a NumberFormatException (from failure of Integer.parseInt)
-            // Success; Assert.fail will not be thrown and the code will complete the test, thus succeeding.
+            // Success; Assert.fail will not be thrown and the code will complete the test, thus succeeding.	(dont understand what this means)
         }
         catch (Exception e)
         {
@@ -129,15 +174,40 @@ public class CalculatorTest {
      */
     public void calculateThreeTokensTestInvalidCommand() throws AssertException
     {
-        // TODO: complete this test...
+    	try
+    	{
+    		Calculator.calculateThreeTokens(new String[] {"6", "foo", "2"});
+    		Assert.fail("Illegal expression did not throw an Exception");
+    	}
+    	
+    	catch (CalculatorException e)
+    	{
+    		// Assert.fail should not be thrown here?
+    	}
+    	
+    	catch (Exception e)
+    	{
+    		Assert.fail("Unexpected Exception (not CalculatorException) caught");
+    	}
+        // TODO: complete this test...complete?
     }
 
     /**
      * Test correct execution of command (one token - only can be "quit"):
      */
-    public void executeTestValidQuit() throws AssertException
-    {
-        // TODO: complete this test...
+    public void executeTestValidQuit() throws AssertException	// tests above for two and three are done working for now
+    {															// just need to do this method and below now
+        try
+        {
+        	String result = Calculator.parseAndExecute("quit");
+        	Assert.assertEquals("quit", result);
+        }
+        catch (Exception e)
+        {
+        	
+        }
+    	
+    	// TODO: complete this test...
     }
 
     /**

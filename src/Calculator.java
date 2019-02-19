@@ -34,6 +34,13 @@ public class Calculator
      */
     protected static int calculateTwoTokens(String[] tokens) throws NumberFormatException, CalculatorException
     {
+    	
+    	String command = tokens[0];
+    	if (command.equalsIgnoreCase("negate") || command.equalsIgnoreCase("halve"))
+    	{
+    		
+    	}
+    		// Throws CalculatorException if the first token is not a valid command
         int a = Integer.parseInt(tokens[1]); // Throws NumberFormatException if the second token is not an int value.
         // TODO: complete this...
     }
@@ -105,9 +112,16 @@ public class Calculator
         // Condition on the number of tokens (number of strings in user input separated by spaces)
         switch(tokens.length)
         {
+        case '2' : calculateTwoTokens(tokens);
+        
+        break;
+        
+        case '3' : calculateThreeTokens(tokens);
             // TODO: complete this...
+        default : //return an error
         }
-
+        
+        return Integer.MIN_VALUE;
     }
 
     /**
@@ -121,7 +135,7 @@ public class Calculator
      *
      * Valid commands are:
      * "quit" - the program should quit
-     * "increment" - an int should be incremented by 1
+     * "increment" - an int should be incremented by 1	should be halve and negate
      * "decrement" - an int should be decremented by 1
      * "+" - two numbers should be added
      * "-" - a number should be subtracted from another
@@ -141,8 +155,39 @@ public class Calculator
      */
     public static String parseAndExecute(String input) // breaks input into tokens and sends it to execute
     {
-        // TODO: complete this...
+    	String[] tokenized = new String[3];
+    	tokenized = input.split(" ");
+    	
+    	try 
+    	{
+			return String.format("The result is: %d", (execute(tokenized)));
+			
+		} // may not need all of these printStackTraces?
+    	catch (ArithmeticException e)
+    	{
+    		System.out.println("Attempted to divide by 0. Please try again.");
+    		e.printStackTrace();
+    	}
+    	catch (NumberFormatException e)
+    	{
+    		System.out.println("Input number cannot be parsed to an int. Please try again.");
+			e.printStackTrace();
+		} 
+    	catch (CalculatorException e) 
+    	{
+			System.out.printf("CalculatorException, message is: %s", e.getMessage());
+			e.printStackTrace();
+		}
+    	return null;		// return in any case needs to be?
+    	
+    	
+        
+    	// TODO: complete this...
         // Hint: you should try and call execute(). If execute encounters an error, it will throw an exception. This
         // method will catch those exceptions and respond accordingly.
+    }
+    public String toString()	// need a toString method?
+    {
+    	return String.format("your error is: %s", argument;
     }
 }
