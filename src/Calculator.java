@@ -46,7 +46,7 @@ public class Calculator
     		}
     		if (command.equalsIgnoreCase("halve"))
     		{
-    			int halvedVal = numberVal / 2;
+    			int halvedVal = (numberVal / 2);
     			answerVal = halvedVal; // int will automatically round down
     			return answerVal;
     		}
@@ -157,9 +157,9 @@ public class Calculator
         // Condition on the number of tokens (number of strings in user input separated by spaces)
         switch(tokens.length)
         {
-        case '0' : throw new CalculatorException("Illegal Token Length");
+        case 0 : throw new CalculatorException("Illegal Token Length");
         
-        case '1' :
+        case 1 :
         	if (tokens[0].equalsIgnoreCase("quit"))
         	{
         		return Integer.MIN_VALUE;
@@ -169,10 +169,10 @@ public class Calculator
         	{
         		throw new CalculatorException("Illegal Command");
         	}
-        		
-        case '2' : calculateTwoTokens(tokens);
         
-        case '3' : calculateThreeTokens(tokens);
+        case 2 : return calculateTwoTokens(tokens);
+        
+        case 3 : return calculateThreeTokens(tokens);
         
         default : throw new CalculatorException("Illegal Token Length");
         }
@@ -210,22 +210,26 @@ public class Calculator
      */
     public static String parseAndExecute(String input) // breaks input into tokens and sends it to execute
     {
-    	String[] tokenized = input.split(" ");
+    	String[] tokenized = new String[3];
+    	tokenized = input.split(" ");
     	try
     	
     	{   
-    		execute(tokenized);
-    		if (execute(tokenized) == Integer.MIN_VALUE);
+    		if (execute(tokenized) == Integer.MIN_VALUE)
     		{
     			return "quit";
     		}
-    		else (execute(tokenized) == (int)(execute(tokenized)))
+    		else if (execute(tokenized) == (int)(execute(tokenized)))
     		{
     			return String.format("The result is: %d", execute(tokenized));
     		}
+    	}
     	
-    		
-    	}    	
+    	catch (ArithmeticException e)
+        {
+        	return "Attempted to divide by 0. Please try again.";
+        
+        }
     	catch (NumberFormatException e)
     	{
     		return "Input number cannot be parsed to an int. Please try again.";
@@ -233,14 +237,10 @@ public class Calculator
 		} 
     	catch (CalculatorException e)
     	{
-			return String.format("CalculatorException, message is: %s", e.getMessage());
+			return String.format("Calculator Exception, message is: %s", e.getMessage());
 		
 		}
-    	catch (ArithmeticException e)
-    	{
-    		return "Attempted to divide by 0. Please try again.";
-    
-    	}
+    	
     	return "";	// return in any case needs to be?
     	
     	
