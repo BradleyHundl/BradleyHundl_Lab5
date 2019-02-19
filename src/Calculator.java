@@ -176,7 +176,6 @@ public class Calculator
         
         default : throw new CalculatorException("Illegal Token Length");
         }
-       
     }
 
     /**
